@@ -35,40 +35,42 @@ public class DataBase extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-    public void storedPoints(List<Point> points){
+
+    public void storedPoints(List<Point> points) {
         SQLiteDatabase writableDatabase = getWritableDatabase();
 
-        writableDatabase.delete(TABLE_POINTS,null,null);
-        int i = 0 ;
-        for (Point point:points){
+        writableDatabase.delete(TABLE_POINTS, null, null);
+        int i = 0;
+        for (Point point : points) {
             ContentValues values = new ContentValues();
 
             values.put(COL_ID, i);
             values.put(COL_X, point.x);
             values.put(COL_Y, point.y);
 
-            writableDatabase.insert(TABLE_POINTS, null , values);
+            writableDatabase.insert(TABLE_POINTS, null, values);
 
-            i ++ ;
+            i++;
 
         }
 
         writableDatabase.close();
     }
-    public List<Point> getPoint(){
+
+    public List<Point> getPoint() {
         List<Point> points = new ArrayList<Point>();
 
         SQLiteDatabase readableDatabase = getReadableDatabase();
 
         String sql = String.format("SELECT %s , %s FROM %s ORDER by %s", COL_X, COL_Y, TABLE_POINTS, COL_ID);
 
-        Cursor cursor = readableDatabase.rawQuery(sql,null);
+        Cursor cursor = readableDatabase.rawQuery(sql, null);
 
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             int x = cursor.getInt(0);
             int y = cursor.getInt(1);
 
-            points.add(new Point(x,y));
+            points.add(new Point(x, y));
         }
 
         return points;
