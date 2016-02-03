@@ -32,9 +32,12 @@ public class PointCollectorListener implements View.OnTouchListener {
 
         if (points.size() == 4) {
             pointCollector.listener(points);
-            points.clear();
+
         }
 
         return false;
+    }
+    public void clear(){
+        points.clear();
     }
 }

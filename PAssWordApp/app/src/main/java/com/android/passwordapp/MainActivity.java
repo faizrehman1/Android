@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements PointCollector {
     }
 
 
-
     @Override
     public void listener(List<Point> points) {
         Log.d("Tag", "Collected POints Are :" + points.size());
@@ -52,16 +51,14 @@ public class MainActivity extends AppCompatActivity implements PointCollector {
     private void pointsCollected(final List<Point> points) {
         ////////////////////AlertDialog for Storing Points ////////////////
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Storing points");
+        builder.setMessage("Stroing Points");
+        final AlertDialog dialog = builder.create();
+        dialog.show();
 
-        final AlertDialog dg = builder.create();
-
-        dg.show();
         AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
                 dataBase.storedPoints(points);
-                Log.d("TAg", "Points SAVED");
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -72,19 +69,19 @@ public class MainActivity extends AppCompatActivity implements PointCollector {
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                dg.dismiss();
-
+                dialog.dismiss();
             }
         };
         task.execute();
-        ///////////////
+
     }
+
     private void showPrompt() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Please Select any Four POint !");
+        builder.setTitle("Create your PassPoint Sequence !");
 
-        builder.setMessage("Please Select Correct POints to get Acces of the App .");
+        builder.setMessage("Touch Four POints to set Your pass point sequence .");
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
