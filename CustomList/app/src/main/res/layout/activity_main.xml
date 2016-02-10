@@ -7,20 +7,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.android.image_passwordapp.Image_Activity">
+    tools:context="com.android.customlist.MainActivity">
 
-    <ImageView
-        android:id="@+id/touch_Screen"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/burjkhalifa" />
-
-    <Button
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TakePhoto"
-        android:layout_alignBottom="@id/touch_Screen"
-        android:id="@+id/snapPic"/>
-
+        android:text="Hello World!" />
 </RelativeLayout>

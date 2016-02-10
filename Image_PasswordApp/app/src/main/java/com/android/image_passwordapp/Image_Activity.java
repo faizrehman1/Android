@@ -4,19 +4,32 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.List;
+
+import static com.android.image_passwordapp.MainActivity.*;
 
 public class Image_Activity extends AppCompatActivity implements PointCollector {
     private static final String SET_PASSWORD = "SET_PASSWORD";
     private static final int POINT_CLOSSNESS = 40;
+    private static final int PHOTO_TAKEN = 0;
+    private Button button;
+    private File imageFile;
 
     private ImageView imageView;
     private PointListener pointListener = new PointListener();
@@ -26,15 +39,51 @@ public class Image_Activity extends AppCompatActivity implements PointCollector 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_);
+        button = (Button) findViewById(R.id.snapPic);
+
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                File picsDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                imageFile = new File(picsDirectory, "passPoint_Image");
+
+                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
+                startActivityForResult(i, PHOTO_TAKEN);
+            }
+        });
+
         imageView = (ImageView) findViewById(R.id.touch_Screen);
         imageView.setOnTouchListener(pointListener);
         pointListener.setPointCollector(this);
+
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null){
+            Boolean resetPassPoints = extras.getBoolean(MainActivity.RESET_PASSWORD);
+            if (resetPassPoints){
+
+            }
+        }
 
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
         Boolean setPassPoint = preferences.getBoolean(SET_PASSWORD, false);
 
         if (!setPassPoint) {
             showPrompt();
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PHOTO_TAKEN){
+            Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+
+            if (bitmap != null){
+                imageView.setImageBitmap(bitmap);
+            }else {
+                Toast.makeText(this,"Photo isn't save to SDCard",Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -121,7 +170,6 @@ public class Image_Activity extends AppCompatActivity implements PointCollector 
 
                 }
 
-
                 return true;
             }
 
@@ -130,10 +178,14 @@ public class Image_Activity extends AppCompatActivity implements PointCollector 
                 if (pass == true) {
                     Intent i = new Intent(Image_Activity.this, MainActivity.class);
                     startActivity(i);
+                    Toast.makeText(Image_Activity.this,"UnLocked..!",Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(Image_Activity.this, "AccessDenied", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Image_Activity.this, "AccessDenied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Image_Activity.this, "WrongPass..!", Toast.LENGTH_LONG).show();
+
                 }
                 dialog.dismiss();
+                pointListener.clear();
             }
         };
         task.execute();
