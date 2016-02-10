@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ListViewApp</string>
+    <string-array name="array_List">
+        <item>KAMRAN</item>
+        <item>Bilal</item>
+        <item>Moosa</item>
+        <item>Imran</item>
+        <item>QASIM</item>
+        <item>Samad</item>
+    </string-array>
+</resources>
