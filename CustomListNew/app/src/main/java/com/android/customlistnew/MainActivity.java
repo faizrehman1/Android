@@ -108,7 +108,9 @@ public class MainActivity extends AppCompatActivity {
         /**
          * jaha data set kerwa rahy ho waha per database se data fetch kero na....
         */
-        adapter = new MessageAdapter(db.reterivingMessages(), this);
+        messages=db.reterivingMessages();
+        
+        adapter = new MessageAdapter(messages, this);
 
         listView.setAdapter(adapter);
 
