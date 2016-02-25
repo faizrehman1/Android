@@ -105,8 +105,10 @@ public class MainActivity extends AppCompatActivity {
         messages.add(new Message("Imran", "My name is imran", 3, true));
 
         listView = (ListView) findViewById(R.id.emailLst);
-
-        adapter = new MessageAdapter(messages, this);
+        /**
+         * jaha data set kerwa rahy ho waha per database se data fetch kero na....
+        */
+        adapter = new MessageAdapter(db.reterivingMessages(), this);
 
         listView.setAdapter(adapter);
 
