@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         setupEmailList();
         addItemAlert();
+
 
     }
 
@@ -99,10 +101,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupEmailList() {
 
-        messages.add(new Message("Kamran", "My name is Kamran", 0, false));
-        messages.add(new Message("Qasim", "My name is qasim", 1, true));
-        messages.add(new Message("Moosa", "My name is moosa", 2, true));
-        messages.add(new Message("Imran", "My name is imran", 3, true));
+//        messages.add(new Message("Kamran", "My name is Kamran", 0, false));
+//        messages.add(new Message("Qasim", "My name is qasim", 1, true));
+//        messages.add(new Message("Moosa", "My name is moosa", 2, true));
+//        messages.add(new Message("Imran", "My name is imran", 3, true));
 
         listView = (ListView) findViewById(R.id.emailLst);
         /**
@@ -113,6 +115,30 @@ public class MainActivity extends AppCompatActivity {
         adapter = new MessageAdapter(messages, this);
 
         listView.setAdapter(adapter);
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+                builder.setMessage("Want to delete Item ?? Click delete");
+                builder.setNegativeButton("Cancel", null);
+
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        messages.remove(position);
+                        adapter.notifyDataSetChanged();
+
+                    }
+                });
+                builder.create().show();
+                return true;
+            }
+        });
+
+
 
     }
 }
