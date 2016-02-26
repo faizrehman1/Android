@@ -19,7 +19,10 @@ public class DataBase extends SQLiteOpenHelper {
     private static final String MSG = "message";
     private static final String STAR = "checkBox";
     private static final String ID = "ID";
+    public void deleteItem(int idToDelete){
 
+        this.getWritableDatabase().delete(TODOSERVER,ID+"=" +idToDelete ,null);
+    }
     public DataBase(Context context) {
         super(context, "TodoListDataBase.db", null, 1);
     }
@@ -79,5 +82,4 @@ public class DataBase extends SQLiteOpenHelper {
         return messages;
     }
 
-    ;
 }

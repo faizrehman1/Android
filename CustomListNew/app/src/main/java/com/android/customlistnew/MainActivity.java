@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(Void aVoid) {
+
             dialog.dismiss();
             }
         };
@@ -128,6 +129,11 @@ public class MainActivity extends AppCompatActivity {
                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //MessageAdapter adapter1 = new MessageAdapter(messages, MainActivity.this);
+
+
+
+                        db.deleteItem(messages.get(position).getId());
                         messages.remove(position);
                         adapter.notifyDataSetChanged();
 
@@ -141,4 +147,5 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 }
