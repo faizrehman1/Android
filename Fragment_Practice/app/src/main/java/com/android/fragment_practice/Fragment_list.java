@@ -1,21 +1,19 @@
-package com.android.fragments_intro;
+package com.android.fragment_practice;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 /**
- * Created by Kamran ALi on 3/5/2016.
+ * Created by Kamran ALi on 3/6/2016.
  */
 public class Fragment_list extends Fragment {
+    private Fragment_int_view fragmentIntView = new Fragment_int_view() ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,18 +25,21 @@ public class Fragment_list extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_view, container, false);
 
-        ImageView imageView = (ImageView) view.findViewById(R.id.image);
-        TextView title = (TextView) view.findViewById(R.id.title);
+        Button incButton = (Button) view.findViewById(R.id.incrmentButton);
+        incButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView tc = (TextView) this.getView().
+                fragmentIntView.getTargetFragment().getId().
 
-        Drawable icon = getResources().getDrawable(R.drawable.sym_def_app_icon);
-        imageView.setImageDrawable(icon);
-        title.setText("Learning Java");
+                int a = fragmentIntView.i;
+                a++ ;
+            }
+        });
         return view;
 
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
+
+
 }
