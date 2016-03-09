@@ -16,7 +16,7 @@ import android.widget.TextView;
  */
 public class SecondFragment extends Fragment {
     private FirstFragment firstFragment = new FirstFragment();
-    public int id = firstFragment.id;
+    public int id = 0;
 
     public SecondFragment() {
         // Required empty public constructor
@@ -34,9 +34,9 @@ public class SecondFragment extends Fragment {
         IncButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                id = ++id;
-                Log.d("ID", "Id is afterInc: " + id);
-                setText(String.valueOf(id));
+
+                ((Inc) getActivity()).update(id);
+                id++;
             }
         });
 
@@ -44,9 +44,15 @@ public class SecondFragment extends Fragment {
         return view;
     }
 
+/*
     public void setText(String text) {
         TextView textView = (TextView) getActivity().findViewById(R.id.txtview);
         textView.setText(text);
+    }
+*/
+
+    public interface Inc {
+        void update(int val);
     }
 
 }

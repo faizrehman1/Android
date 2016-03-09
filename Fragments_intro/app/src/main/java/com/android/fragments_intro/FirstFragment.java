@@ -13,9 +13,9 @@ import android.widget.TextView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FirstFragment extends Fragment {
-    public int id = 0 ;
-
+public class FirstFragment extends Fragment implements MainActivity.UpdateFrag{
+  //  public int id = 0;
+    public TextView textView;
 
 
     public FirstFragment() {
@@ -29,10 +29,14 @@ public class FirstFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_first, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.imgView);
-        TextView textView = (TextView) view.findViewById(R.id.txtview);
-        textView.setText(String.valueOf(id));
+        textView = (TextView) view.findViewById(R.id.txtview);
 
         return view;
     }
 
+    @Override
+    public void inc(int val) {
+        textView.setText(String.valueOf(val));
+
+    }
 }
