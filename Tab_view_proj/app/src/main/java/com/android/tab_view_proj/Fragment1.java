@@ -16,7 +16,8 @@ public class Fragment1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag1,container,false);
-
+        TextView textView = (TextView) view.findViewById(R.id.textview1);
+        textView.setText("This is Fragment 1");
         return view;
     }
 }

@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 final EditText addTitle = (EditText) view.findViewById(R.id.add_item_title);
                 final EditText addMsg = (EditText) view.findViewById(R.id.add_item_message);
                 final CheckBox checkView = (CheckBox) view.findViewById(R.id.tick_box_View);
+
                 builder.setView(view);
                 builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                         String title = addTitle.getText().toString();
                         String msg = addMsg.getText().toString();
                         boolean read = checkView.isChecked();
+
                         Message email = new Message(title, msg, 0, read);
                         messages.add(email);
 
@@ -79,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         emailList = (ListView) findViewById(R.id.email_List);
 
         messages = db.reterivingList();
+
         adapter = new MessageAdapter(messages, this);
 
 

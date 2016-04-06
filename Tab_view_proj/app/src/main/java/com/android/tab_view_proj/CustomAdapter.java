@@ -11,7 +11,8 @@ import android.view.View;
  * Created by Kamran ALi on 3/9/2016.
  */
 public class CustomAdapter extends FragmentPagerAdapter {
-    private String fragments [] ={"Fragment1","Fragmet2"};
+    private String fragments [] ={"1","2","3","4"};
+
     public CustomAdapter(android.support.v4.app.FragmentManager supportFragmentManager, Context applicationContext) {
         super(supportFragmentManager);
     }
@@ -26,8 +27,12 @@ public class CustomAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new Fragment1();
+                return new FirstFragment();
             case 1:
+                return new SecondFragment();
+            case 2 :
+                return new Fragment1();
+            case 3:
                 return new Fragment2();
             default:
                 return null;
