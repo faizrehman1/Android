@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void back() {
         bButton = (Button) findViewById(R.id.backButton);
+
     }
 
     public void addA() {
@@ -53,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
         addA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mManager.beginTransaction().add(R.id.group, FragmentA, "A").commit();
+                mManager.beginTransaction().add(R.id.group, FragmentA, "A").addToBackStack("addA").commit();
+
             }
         });
 
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 Fragment f1 = mManager.findFragmentByTag("A");
 
                 if (f1 != null) {
-                    mManager.beginTransaction().remove(f1).commit();
+                    mManager.beginTransaction().remove(f1).addToBackStack("removeA").commit();
 
                 } else {
                     Toast.makeText(getApplicationContext(), "fragment Already empty", Toast.LENGTH_SHORT).show();
@@ -85,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FragmentB = new FragmentB();
-                mManager.beginTransaction().add(R.id.group, FragmentB, "B").commit();
+                mManager.beginTransaction().add(R.id.group, FragmentB, "B").addToBackStack("addB").commit();
             }
         });
     }
@@ -98,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Fragment f2 = mManager.findFragmentByTag("B");
                 if (f2 != null) {
-                    mManager.beginTransaction().remove(f2).commit();
+                    mManager.beginTransaction().remove(f2).addToBackStack("removeB").commit();
 
                 } else {
                     Toast.makeText(getApplicationContext(), "fragment 2 is already not exsist!", Toast.LENGTH_SHORT).show();
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FragmentB = new FragmentB();
 
-                mManager.beginTransaction().replace(R.id.group, FragmentB, "B").commit();
+                mManager.beginTransaction().replace(R.id.group, FragmentB, "B").addToBackStack("replaceAwithB").commit();
 
             }
         });
@@ -133,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FragmentA = new FragmentA();
 
-                mManager.beginTransaction().replace(R.id.group, FragmentA, "A").commit();
+                mManager.beginTransaction().replace(R.id.group, FragmentA, "A").addToBackStack("replaceBwithA").commit();
 
             }
         });
@@ -144,12 +146,12 @@ public class MainActivity extends AppCompatActivity {
 
         attachA = (Button) findViewById(R.id.attachA);
 
-         final FragmentA f1 = (com.android.transcationproject.FragmentA) mManager.findFragmentByTag("A");
+        final FragmentA f1 = (com.android.transcationproject.FragmentA) mManager.findFragmentByTag("A");
         attachA.setOnClickListener(new View.OnClickListener() {
             @Override
-             public void onClick(View v) {
+            public void onClick(View v) {
                 if (f1 != null) {
-                    mManager.beginTransaction().attach(f1).commit();
+                    mManager.beginTransaction().attach(f1).addToBackStack("attachA").commit();
 
                 }
             }
@@ -165,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FragmentA f1 = (com.android.transcationproject.FragmentA) mManager.findFragmentByTag("A");
                 if (f1 != null) {
-                    mManager.beginTransaction().detach(f1).commit();
+                    mManager.beginTransaction().detach(f1).addToBackStack("deattachA").commit();
 
                 }
             }

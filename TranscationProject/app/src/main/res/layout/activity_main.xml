@@ -91,7 +91,6 @@
         android:text="Pop Add B"/>
 
     <LinearLayout
-        android:id="@+id/group"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
@@ -99,6 +98,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/group"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
